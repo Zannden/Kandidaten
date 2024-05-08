@@ -9,13 +9,13 @@ from datetime import datetime
 # Skapa ett objekt av klassen AutonomousVehicle 
 vehicle = AutonomousVehicle()
 
-def send_updates(client_sock, status): 
+def send_updates(client_sock, vehicle.get_AGV_status(),vehicle.get_AGV_status()): 
     while True: 
         now = datetime.now() 
         current_time = now.strftime("%H:%M:%S")
         # Använd get_coordinates-metoden från AutonomousVehicle 
         #coordinates = vehicle.get_coordinates(10, 20) 
-        update = f"{current_time}_{vehicle.get_coordinates()}_{vehicle.get_AGV_status()}\n" 
+        update = f"{current_time}_{vehicle.get_AGV_status()}_{vehicle.get_AGV_status()}\n" 
         try: 
             client_sock.send(update.encode('utf-8')) 
         except Exception as e: 
@@ -41,7 +41,7 @@ def RXTX_messages(client_sock, status, send_thread):
             elif decoded_data[9] == 'B':# or vehicle.status.value == 'W': 
                 vehicle.set_status(True) # starta navigeringen! 
                 if send_thread[0] is None or not send_thread[0].is_alive(): 
-                    send_thread[0] = threading.Thread(target=send_updates, args=(client_sock, status)) 
+                send_thread[0] = threading.Thread(target=send_updates, args=(client_sock, vehicle.get_AGV_status(), vehicle.get_AGV_status()) 
                     send_thread[0].start()  
             elif str(data[10]).isdigit(): 
                 now = datetime.now() 
